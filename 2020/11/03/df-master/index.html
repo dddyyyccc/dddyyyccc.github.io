@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>df-master | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="复现df-master复现了基于深度学习的df-master，主要代码如下 12345678910111213141516171819202122232425262728293031323334353637383940import cPickle as pickleimport numpy as np# Load data for non-defended dataset for CW setti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="df-master">
+<meta property="og:url" content="http://example.com/2020/11/03/df-master/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="复现df-master复现了基于深度学习的df-master，主要代码如下 12345678910111213141516171819202122232425262728293031323334353637383940import cPickle as pickleimport numpy as np# Load data for non-defended dataset for CW setti">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-03T13:06:25.000Z">
+<meta property="article:modified_time" content="2020-11-03T13:08:11.139Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-df-master" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/11/03/df-master/" class="article-date">
+  <time datetime="2020-11-03T13:06:25.000Z" itemprop="datePublished">2020-11-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      df-master
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="复现df-master"><a href="#复现df-master" class="headerlink" title="复现df-master"></a>复现df-master</h1><p>复现了基于深度学习的df-master，主要代码如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cPickle <span class="keyword">as</span> pickle</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load data for non-defended dataset for CW setting</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">LoadDataNoDefCW</span>():</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Loading non-defended dataset for closed-world scenario&quot;</span></span><br><span class="line">    <span class="comment"># Point to the directory storing data</span></span><br><span class="line">    dataset_dir = <span class="string">&#x27;../dataset/ClosedWorld/NoDef/&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># X represents a sequence of traffic directions</span></span><br><span class="line">    <span class="comment"># y represents a sequence of corresponding label (website&#x27;s label)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Load training data</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(dataset_dir + <span class="string">&#x27;X_train_NoDef.pkl&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> handle:</span><br><span class="line">        X_train = np.array(pickle.load(handle))</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(dataset_dir + <span class="string">&#x27;y_train_NoDef.pkl&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> handle:</span><br><span class="line">        y_train = np.array(pickle.load(handle))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Load validation data</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(dataset_dir + <span class="string">&#x27;X_valid_NoDef.pkl&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> handle:</span><br><span class="line">        X_valid = np.array(pickle.load(handle))</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(dataset_dir + <span class="string">&#x27;y_valid_NoDef.pkl&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> handle:</span><br><span class="line">        y_valid = np.array(pickle.load(handle))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Load testing data</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(dataset_dir + <span class="string">&#x27;X_test_NoDef.pkl&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> handle:</span><br><span class="line">        X_test = np.array(pickle.load(handle))</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(dataset_dir + <span class="string">&#x27;y_test_NoDef.pkl&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> handle:</span><br><span class="line">        y_test = np.array(pickle.load(handle))</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Data dimensions:&quot;</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;X: Training data&#x27;s shape : &quot;</span>, X_train.shape</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;y: Training data&#x27;s shape : &quot;</span>, y_train.shape</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;X: Validation data&#x27;s shape : &quot;</span>, X_valid.shape</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;y: Validation data&#x27;s shape : &quot;</span>, y_valid.shape</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;X: Testing data&#x27;s shape : &quot;</span>, X_test.shape</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;y: Testing data&#x27;s shape : &quot;</span>, y_test.shape</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> X_train, y_train, X_valid, y_valid, X_test, y_test</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># This code is to implement deep fingerprinting model for website fingerprinting attacks</span></span><br><span class="line"><span class="comment"># ACM Reference Formant</span></span><br><span class="line"><span class="comment"># Payap Sirinam, Mohsen Imani, Marc Juarez, and Matthew Wright. 2018.</span></span><br><span class="line"><span class="comment"># Deep Fingerprinting: Undermining Website Fingerprinting Defenses with Deep Learning.</span></span><br><span class="line"><span class="comment"># In 2018 ACM SIGSAC Conference on Computer and Communications Security (CCS ’18),</span></span><br><span class="line"><span class="comment"># October 15–19, 2018, Toronto, ON, Canada. ACM, New York, NY, USA, 16 pages.</span></span><br><span class="line"><span class="comment"># https://doi.org/10.1145/3243734.3243768</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> backend <span class="keyword">as</span> K</span><br><span class="line"><span class="keyword">from</span> utility <span class="keyword">import</span> LoadDataNoDefCW</span><br><span class="line"><span class="keyword">from</span> Model_NoDef <span class="keyword">import</span> DFNet</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> keras.utils <span class="keyword">import</span> np_utils</span><br><span class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> Adamax</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">random.seed(<span class="number">0</span>)</span><br><span class="line">os.environ[<span class="string">&#x27;TF_CPP_MIN_LOG_LEVEL&#x27;</span>] = <span class="string">&#x27;3&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Use only CPU</span></span><br><span class="line"><span class="comment">#os.environ[&quot;CUDA_DEVICE_ORDER&quot;] = &quot;PCI_BUS_ID&quot;   # see issue #152</span></span><br><span class="line"><span class="comment">#os.environ[&quot;CUDA_VISIBLE_DEVICES&quot;] = &quot;&quot;</span></span><br><span class="line"></span><br><span class="line">description = <span class="string">&quot;Training and evaluating DF model for closed-world scenario on non-defended dataset&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> description</span><br><span class="line"><span class="comment"># Training the DF model</span></span><br><span class="line">NB_EPOCH = <span class="number">30</span>   <span class="comment"># Number of training epoch</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;Number of Epoch: &quot;</span>, NB_EPOCH</span><br><span class="line">BATCH_SIZE = <span class="number">128</span> <span class="comment"># Batch size</span></span><br><span class="line">VERBOSE = <span class="number">2</span> <span class="comment"># Output display mode</span></span><br><span class="line">LENGTH = <span class="number">5000</span> <span class="comment"># Packet sequence length</span></span><br><span class="line">OPTIMIZER = Adamax(lr=<span class="number">0.002</span>, beta_1=<span class="number">0.9</span>, beta_2=<span class="number">0.999</span>, epsilon=<span class="number">1e-08</span>, decay=<span class="number">0.0</span>) <span class="comment"># Optimizer</span></span><br><span class="line"></span><br><span class="line">NB_CLASSES = <span class="number">95</span> <span class="comment"># number of outputs = number of classes</span></span><br><span class="line">INPUT_SHAPE = (LENGTH,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Data: shuffled and split between train and test sets</span></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;Loading and preparing data for training, and evaluating the model&quot;</span>)</span><br><span class="line">X_train, y_train, X_valid, y_valid, X_test, y_test = LoadDataNoDefCW()</span><br><span class="line"><span class="comment"># Please refer to the dataset format in readme</span></span><br><span class="line">K.set_image_dim_ordering(<span class="string">&quot;tf&quot;</span>) <span class="comment"># tf is tensorflow</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert data as float32 type</span></span><br><span class="line">X_train = X_train.astype(<span class="string">&#x27;float32&#x27;</span>)</span><br><span class="line">X_valid = X_valid.astype(<span class="string">&#x27;float32&#x27;</span>)</span><br><span class="line">X_test = X_test.astype(<span class="string">&#x27;float32&#x27;</span>)</span><br><span class="line">y_train = y_train.astype(<span class="string">&#x27;float32&#x27;</span>)</span><br><span class="line">y_valid = y_valid.astype(<span class="string">&#x27;float32&#x27;</span>)</span><br><span class="line">y_test = y_test.astype(<span class="string">&#x27;float32&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># we need a [Length x 1] x n shape as input to the DF CNN (Tensorflow)</span></span><br><span class="line">X_train = X_train[:, :,np.newaxis]</span><br><span class="line">X_valid = X_valid[:, :,np.newaxis]</span><br><span class="line">X_test = X_test[:, :,np.newaxis]</span><br><span class="line"></span><br><span class="line">print(X_train.shape[<span class="number">0</span>], <span class="string">&#x27;train samples&#x27;</span>)</span><br><span class="line">print(X_valid.shape[<span class="number">0</span>], <span class="string">&#x27;validation samples&#x27;</span>)</span><br><span class="line">print(X_test.shape[<span class="number">0</span>], <span class="string">&#x27;test samples&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert class vectors to categorical classes matrices</span></span><br><span class="line">y_train = np_utils.to_categorical(y_train, NB_CLASSES)</span><br><span class="line">y_valid = np_utils.to_categorical(y_valid, NB_CLASSES)</span><br><span class="line">y_test = np_utils.to_categorical(y_test, NB_CLASSES)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Building and training model</span></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;Building and training DF model&quot;</span>)</span><br><span class="line"></span><br><span class="line">model = DFNet.build(input_shape=INPUT_SHAPE, classes=NB_CLASSES)</span><br><span class="line"></span><br><span class="line">model.<span class="built_in">compile</span>(loss=<span class="string">&quot;categorical_crossentropy&quot;</span>, optimizer=OPTIMIZER,</span><br><span class="line">	metrics=[<span class="string">&quot;accuracy&quot;</span>])</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;Model compiled&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start training</span></span><br><span class="line">history = model.fit(X_train, y_train,</span><br><span class="line">		batch_size=BATCH_SIZE, epochs=NB_EPOCH,</span><br><span class="line">		verbose=VERBOSE, validation_data=(X_valid, y_valid))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Start evaluating model with testing data</span></span><br><span class="line">score_test = model.evaluate(X_test, y_test, verbose=VERBOSE)</span><br><span class="line">print(<span class="string">&quot;Testing accuracy:&quot;</span>, score_test[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>遇到的一些问题</p>
+<p>1、所有库的版本要对应，复现过程中遇到了tensorflow和keras版本不对应的问题</p>
+<p>2、NB_CLASSES 对应的是从0~NB_CLASSED-1这NB_CLASSED个类别，做数据预处理的时候要注意</p>
+<p>3、anaconda新环境装spyder会卡住，这个问题尚未解决，直接用命令行运行解决</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/03/df-master/" data-id="ckh1zmxtd0001hcvo171uhpqs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/11/02/article-title/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">article title</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/03/df-master/">df-master</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/02/article-title/">article title</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/31/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
